@@ -58,7 +58,7 @@ class RestaurantResource(Resource):
                 'data': restaurants
             }, 200
         return {
-            'status': 'Failed',
+            'status': 'No restaurants found',
         }, 400
     
     def post(self):
@@ -66,22 +66,19 @@ class RestaurantResource(Resource):
         if not json_data:
             return {'message': 'No input data provided'}, 400
         # Validate and deserialize input
-        data, errors = user_schema.load(json_data)
+        data, errors = restaurant_schema.load(json_data)
         if errors:
             return errors, 422
         restaurant = Restaurant.query.filter_by(name=data['name']).first()
+        print(restaurant)
         if restaurant:
-            
-            return {'message': 'User already exists'}, 400
-        user = User(
-            username=json_data['username'],
-            email=json_data['email'],
-            phonenumber=json_data['phonenumber'],
-            password_hash=json_data['password_hash'],
+            if restaurant.location == data['location']:            
+                return {'message': 'Restaurant already exists in that location'}, 400
+        restaurant = Restaurant(
+            name=json_data['name'],
             location=json_data['location'],
-            role=json_data['role'],
             )
-        db.session.add(user)
+        db.session.add(restaurant)
         db.session.commit()
-        result = user_schema.dump(user).data
+        result = restaurant_schema.dump(restaurant).data
         return { "status": 'success', 'data': result }, 201
