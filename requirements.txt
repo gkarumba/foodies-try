@@ -24,7 +24,6 @@ markdown2==2.3.8
 MarkupSafe==1.1.1
 marshmallow==2.19.5
 marshmallow-sqlalchemy==0.17.0
-pkg-resources==0.0.0
 psycopg2-binary==2.8.3
 PyJWT==1.4.2
 python-dateutil==2.8.0
