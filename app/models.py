@@ -57,6 +57,10 @@ class UserSchema(ma.Schema):
     password_hash = fields.String(required=True, validate=validate.Length(1))
     location = fields.String(required=True, validate=validate.Length(1))
 
+class LoginSchema(ma.Schema):
+    email = fields.String(required=True, validate=validate.Length(1))
+    password_hash = fields.String(required=True, validate=validate.Length(1))
+
     # def __repr__(self):
     #     return f'User {self.username}'
     
@@ -117,8 +121,8 @@ class FoodSchema(ma.Schema):
     foods = fields.String(required=True)
     category = fields.String(required=True, validate=validate.Length(1))
     description = fields.String(required=True, validate=validate.Length(1))
-    price = fields.Integer(required=True, validate=validate.Length(1))
-    restaurant_id = fields.Integer(required=True, validate=validate.Length(1))
+    price = fields.Integer(required=True)
+    restaurant_id = fields.Integer(required=True)
     
     
     
