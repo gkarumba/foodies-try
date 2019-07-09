@@ -1,0 +1,6 @@
+.env
+venv/
+.vscode/
+*.pyc
+start.sh
+migrations/
