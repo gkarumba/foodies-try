@@ -136,9 +136,8 @@ class Recipe(db.Model):
     description= db.Column(db.String)
     restaurant_id = db.Column(db.Integer)
     
-    def __init__(self,recipe_name,food_id,description,restaurant_id):
+    def __init__(self,recipe_name,description,restaurant_id):
         self.recipe_name = recipe_name
-        self.food_id = food_id
         self.description = description
         self.restaurant_id = restaurant_id
 
@@ -151,8 +150,8 @@ class RecipeSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     recipe_name = fields.String(required=True)
     description = fields.String(required=True, validate=validate.Length(1))
-    food_id = fields.Integer(required=True, validate=validate.Length(1))
-    restaurant_id = fields.Integer(required=True, validate=validate.Length(1))
+    # food_id = fields.Integer(required=True, validate=validate.Length(1))
+    restaurant_id = fields.Integer(required=True)
     
 
     
@@ -167,10 +166,10 @@ class Review(db.Model):
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
-    def __init__(self,review,rating,posted,restaurant_id,user_id):
+    def __init__(self,review,rating,restaurant_id,user_id):
         self.review = review
         self.rating = rating
-        self.posted = posted
+        # self.posted= posted
         self.restaurant_id = restaurant_id
         self.user_id = user_id
         
@@ -188,10 +187,10 @@ class Review(db.Model):
 class ReviewSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     review = fields.String(required=True)
-    rating = fields.Integer(required=True, validate=validate.Length(1))
-    posted = fields.Integer(required=True, validate=validate.Length(1))
-    restaurant_id = fields.Integer(required=True, validate=validate.Length(1))
-    user_id = fields.Integer(required=True, validate=validate.Length(1))
+    rating = fields.Integer(required=True)
+    posted = fields.DateTime(required=True)
+    restaurant_id = fields.Integer(required=True)
+    user_id = fields.Integer(required=True)
 
 class Information(db.Model):
     
@@ -230,7 +229,7 @@ class InformationSchema(ma.Schema):
     description = fields.String(required=True, validate=validate.Length(1))
     location = fields.String(required=True, validate=validate.Length(1))
     contact = fields.String(required=True, validate=validate.Length(1))
-    restaurant_id = fields.Integer(required=True, validate=validate.Length(1))
+    restaurant_id = fields.Integer(required=True)
  
 class Order(db.Model):
     
