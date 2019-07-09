@@ -6,7 +6,7 @@ class Config:
     basedir = os.path.abspath(os.path.dirname(__file__))
     SECRET_KEY = os.environ.get('SECRET_KEY') 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food1'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food1'
     UPLOADS_DEFAULT_DEST ='app/static'
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
@@ -28,7 +28,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    # SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     pass
 
 class TestConfig(Config):
@@ -36,7 +36,7 @@ class TestConfig(Config):
     pass
     
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food1'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food1'
     DEBUG = True
 
 
