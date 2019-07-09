@@ -597,5 +597,91 @@ class OrderResource(Resource):
         return {
             'status': 'No orders found for that restaurant',
         }, 400
-    
-    
+       
+class UserOrder(Resource):
+    @login_required 
+    def post(self,id,f_id):
+        json_data = request.get_json(force=True)
+        if not json_data:
+            return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+        data, errors = order_schema.load(json_data)
+        if errors:
+            return errors, 422
+        order = Order(
+            timeOrdered=json_data['timeOrdered'],
+            food_id=json_data['food_id'],
+            price=json_data['price'],
+            user_id=json_data['user_id'],
+            restaurant_id=id
+            )
+        order.restaurant_id = id
+        userId = GetUserId.user_creds(self)
+        order.user_id = userId
+        order.food_id = f_id
+        db.session.add(order)
+        db.session.commit()
+        result = order_schema.dump(order).data
+        return { "status": 'success', 'data': result }, 201
+   
+class OrderRetrieve(Resource):        
+    @login_required
+    def put(self,id,r_id,f_id):
+        json_data = request.get_json(force=True)
+        if not json_data:
+            return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+        data, errors = order_schema.load(json_data)
+        if errors:
+            return errors, 422
+        order = Order.query.filter_by(id=id).first()
+        # print(order)
+        if not order:           
+            return {'message': 'Order doesn\'t exists'}, 400
+        userId = GetUserId.user_creds(self)
+        order = Order.query.filter_by(id=id,user_id=userId).first()
+        # print(order)
+        if not order:           
+            return {'message': 'user can only edit reviews they made'}, 400
+        
+        order.timeOrdered=data['timeOrdered']
+        order.food_id=data['food_id']
+        order.price=data['price']
+        order.user_id=data['user_id']
+        order.restaurant_id=data['restaurant_id']
+        order.food_id= f_id
+        order.user_id= userId
+        order.restaurant_id= r_id
+        db.session.commit()
+        result = order_schema.dump(order).data
+        print(result)
+        if result:
+            return {
+                "status" : 'success',
+                'data' : result,
+            }, 200
+        
+    @login_required
+    def delete(self,id,r_id,f_id):
+        json_data = request.get_json(force=True)
+        if not json_data:
+            return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
+        data, errors = order_schema.load(json_data)
+        if errors:
+            return errors, 422
+        order = Order.query.filter_by(id=id).first()
+        # print(order)
+        if not order:           
+            return {'message': 'Order doesn\'t exists'}, 400
+        userId = GetUserId.user_creds(self)
+        order = Order.query.filter_by(id=id,user_id=userId).first()
+        # print(order)
+        if not order:           
+            return {'message': 'user can only edit reviews they made'}, 400
+        order = Order.query.filter_by(id=id).delete()
+        db.session.commit()
+
+        result = order_schema.dump(order).data
+
+        return { "status": 'success', 'data': result}, 204

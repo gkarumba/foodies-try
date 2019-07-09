@@ -257,8 +257,8 @@ class Order(db.Model):
 class OrderSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     timeOrdered = fields.String(required=True)
-    food_id = fields.Integer(required=True, validate=validate.Length(1))
-    price = fields.Integer(required=True, validate=validate.Length(1))
-    user_id = fields.Integer(required=True, validate=validate.Length(1)) 
-    restaurant_id = fields.Integer(required=True, validate=validate.Length(1))   
+    food_id = fields.Integer(required=True)
+    price = fields.Integer(required=True)
+    user_id = fields.Integer(required=True) 
+    restaurant_id = fields.Integer(required=True)   
     
