@@ -71,16 +71,17 @@ class Restaurant(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String)
     location = db.Column(db.String)
-    # information = db.Column(db.String)
+    image_url = db.Column(db.String)
     informations = db.relationship('Information',backref = 'restaurant',lazy = "dynamic")
     review = db.relationship('Review',backref = 'restaurant',lazy = "dynamic")
     
     # def save_restaurant(self):
     #     db.session.add(self)
     #     db.session.commit()
-    def __init__(self,name,location,):
+    def __init__(self,name,location,image_url):
         self.name = name
         self.location = location
+        self.image_url = image_url
         
     @classmethod
     def get_restaurants(cls):

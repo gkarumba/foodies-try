@@ -139,6 +139,7 @@ class RestaurantResource(Resource):
         restaurant = Restaurant(
             name=json_data['name'],
             location=json_data['location'],
+            image_url = json_data['image_url']
             )
         db.session.add(restaurant)
         db.session.commit()
@@ -175,6 +176,7 @@ class RestaurantById(Resource):
             return {'message': 'restaurant does not exist'}, 400
         restaurant.name = data['name']
         restaurant.location=data['location']
+        restaurant.image_url=data['image_url']
         db.session.commit()
         # restaurants = Restaurant.query.filter_by(id=id).first()
         result = restaurant_schema.dump(restaurant).data
