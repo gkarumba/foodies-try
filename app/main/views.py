@@ -94,7 +94,20 @@ class UserSignIn(Resource):
             return {
                 'message':'Invalid logging credentials'
             },400
-
+class RestaurantCategory(Resource):
+    @login_required
+    def get(self,uname):
+        restaurant = Restaurant.query.filter_by(name=uname).first()
+        restaurants = restaurants_schema.dump(restaurant).data
+        if restaurants:
+            return {
+                'status': 'success',
+                'data': restaurants
+            }, 200
+        return {
+            'status': 'No restaurants found',
+        }, 400
+        
 class RestaurantResource(Resource):
     @login_required
     def get(self):
