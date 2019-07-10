@@ -107,6 +107,20 @@ class RestaurantCategory(Resource):
         return {
             'status': 'No restaurants found',
         }, 400
+    
+class RestaurantLocation(Resource):
+    @login_required
+    def get(self,uname):
+        restaurant = Restaurant.query.filter_by(location=uname).first()
+        restaurants = restaurants_schema.dump(restaurant).data
+        if restaurants:
+            return {
+                'status': 'success',
+                'data': restaurants
+            }, 200
+        return {
+            'status': 'No restaurants found in that location',
+        }, 400 
         
 class RestaurantResource(Resource):
     @login_required
@@ -124,6 +138,12 @@ class RestaurantResource(Resource):
     
     @login_required
     def post(self):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -163,6 +183,12 @@ class RestaurantById(Resource):
         
     @login_required
     def put(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -189,6 +215,12 @@ class RestaurantById(Resource):
         
     @login_required
     def delete(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -223,6 +255,12 @@ class FoodResource(Resource):
     
     @login_required
     def post(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -265,6 +303,12 @@ class FoodById(Resource):
         
     @login_required
     def put(self,r_id,f_id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -294,6 +338,12 @@ class FoodById(Resource):
         
     @login_required
     def delete(self,r_id,f_id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -328,6 +378,12 @@ class RecipeResource(Resource):
     
     @login_required
     def post(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -353,6 +409,12 @@ class RecipeResource(Resource):
            
     @login_required
     def put(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -381,6 +443,12 @@ class RecipeResource(Resource):
         
     @login_required
     def delete(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -522,6 +590,12 @@ class InformationResource(Resource):
     
     @login_required
     def post(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -550,6 +624,12 @@ class InformationResource(Resource):
            
     @login_required
     def put(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -581,6 +661,12 @@ class InformationResource(Resource):
         
     @login_required
     def delete(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
@@ -602,6 +688,12 @@ class InformationResource(Resource):
 class OrderResource(Resource):
     @login_required
     def get(self,id):
+        userId = GetUserId.user_creds(self)
+        user = User.query.filter_by(id=userId).first()
+        if user.role != 'Admin':
+            return {
+                'message': 'User not allowed to perform action'
+            }, 401
         order = Order.query.filter_by(restaurant_id=id).all()
         orders = orders_schema.dump(order).data
         if orders:
