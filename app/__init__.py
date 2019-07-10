@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+from flask_cors import CORS
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -13,7 +14,7 @@ login_manager.login_view = 'auth.login'
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
-
+cors = CORS() 
 mail = Mail()
 
 photos = UploadSet('photos',IMAGES)
@@ -34,7 +35,7 @@ def create_app(config_name):
     login_manager.init_app(app)  
     mail.init_app(app)
     simple.init_app(app)
-    
+    cors.init_app(app)
     # Registering the blueprint
     from .blueprints import api_bp
     app.register_blueprint(api_bp,url_prefix='/api')
