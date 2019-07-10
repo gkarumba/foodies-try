@@ -19,7 +19,7 @@ api.add_resource(RestaurantCategory,'/restaurant/<uname>')
 # user login
 api.add_resource(UserSignIn,'/user/login')
 # search restaurant by location
-api.add_resource(RestaurantCategory,'/restaurant/location/<uname>')
+api.add_resource(RestaurantLocation,'/restaurant/location/<uname>')
 # get/edit/delete restaurant by id (id=restaurant_id)
 api.add_resource(RestaurantById,'/restaurant/<int:id>')
 # get/add food to specific restaurant(id=restaurant_id)
