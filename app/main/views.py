@@ -9,7 +9,7 @@ from .. import db,photos
 import markdown2 
 from datetime import datetime
 from ..util.tokens import Tokens,login_required, GetUserId
-
+from flask_cors import cross_origin
 tk = Tokens() 
 
 users_schema = UserSchema(many=True)
@@ -40,7 +40,7 @@ class UserCategory(Resource):
             'status': 'success',
             'data': users
         }, 200
-    
+    # @cross_origin()
     def post(self):
         json_data = request.get_json(force=True)
         if not json_data:

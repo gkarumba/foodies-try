@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api
+from flask_cors import CORS
 from .main.views import (
     UserCategory,RestaurantResource,UserSignIn,RestaurantById,
     FoodResource,FoodById,RecipeResource,ReviewResource,
@@ -8,6 +9,13 @@ from .main.views import (
 )
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
+# CORS(api)
+
+# @Api.after_request # blueprint can also be app~~
+# def after_request(response):
+#     header = response.headers
+#     header['Access-Control-Allow-Origin'] = '*'
+#     return response
 
 # Route
 # user registration

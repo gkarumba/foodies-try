@@ -5,6 +5,7 @@ Click==7.0
 dominate==2.3.5
 Flask==1.0.3
 Flask-Bootstrap==3.3.7.1
+Flask-Cors==3.0.8
 Flask-JWT==0.3.2
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
@@ -24,6 +25,7 @@ markdown2==2.3.8
 MarkupSafe==1.1.1
 marshmallow==2.19.5
 marshmallow-sqlalchemy==0.17.0
+pkg-resources==0.0.0
 psycopg2-binary==2.8.3
 PyJWT==1.4.2
 python-dateutil==2.8.0
