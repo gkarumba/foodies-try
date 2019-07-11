@@ -97,6 +97,7 @@ class RestaurantSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
     name = fields.String(required=True)
     location = fields.String(required=True, validate=validate.Length(1))
+    image_url = fields.String(required=True)
   
 class Food(db.Model):
     
