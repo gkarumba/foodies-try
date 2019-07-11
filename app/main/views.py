@@ -123,7 +123,7 @@ class RestaurantLocation(Resource):
         }, 400 
         
 class RestaurantResource(Resource):
-    @login_required
+
     def get(self):
         restaurant = Restaurant.query.all()
         restaurants = restaurants_schema.dump(restaurant).data
