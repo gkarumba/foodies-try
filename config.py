@@ -36,7 +36,7 @@ class TestConfig(Config):
     pass
     
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food2'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:123456@localhost/food2'
     DEBUG = True
 
 
