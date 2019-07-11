@@ -109,7 +109,7 @@ class RestaurantCategory(Resource):
         }, 400
     
 class RestaurantLocation(Resource):
-    @login_required
+
     def get(self,uname):
         restaurant = Restaurant.query.filter_by(location=uname).first()
         restaurants = restaurants_schema.dump(restaurant).data
